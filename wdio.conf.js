@@ -96,7 +96,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://betterhalf.ai',
+    baseUrl: 'https://www.betterhalf.ai/',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -143,7 +143,7 @@ exports.config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 120000
     },
     //
     // =====
@@ -215,8 +215,15 @@ exports.config = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    // beforeTest: function (test, context) {
-    // },
+    beforeTest: function () {
+        const chai=require("chai");
+        const chaiWebdriver=require("chai-webdriverio").default;
+        chai.use(chaiWebdriver);
+        global.assert=chai.assert;
+        global.expect=chai.expect;
+        global.should=chai.should
+
+    },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
      * beforeEach in Mocha)
